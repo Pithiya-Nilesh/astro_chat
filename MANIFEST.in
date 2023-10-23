@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include astro_chat *.css
+recursive-include astro_chat *.csv
+recursive-include astro_chat *.html
+recursive-include astro_chat *.ico
+recursive-include astro_chat *.js
+recursive-include astro_chat *.json
+recursive-include astro_chat *.md
+recursive-include astro_chat *.png
+recursive-include astro_chat *.py
+recursive-include astro_chat *.svg
+recursive-include astro_chat *.txt
+recursive-exclude astro_chat *.pyc
