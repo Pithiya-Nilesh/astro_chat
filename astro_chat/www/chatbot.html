@@ -1,0 +1,65 @@
+{% extends "templates/web.html" %}
+
+<!-- {% block title %}{{ _("My Chat") }}{% endblock %} -->
+<!-- {% block header %}<h1 >{{ _("My Chat") }}</h1>{% endblock %} -->
+{% block head_include %}
+
+{% endblock %}
+
+
+{% block page_content %}
+<!-- no-cache -->
+<!-- {% if frappe.session.user == "Guest"%}
+    <script>window.location.href = "/" </script>
+{% endif %} -->
+<main class="main">
+	<section class="section pt-2">
+        <button onclick="get()">click</button>
+	</section>
+</main>
+<script>
+    console.log("new page load")
+   
+    function get(){
+        console.log("asdf")
+        frappe.realtime.on('latest_chat_updates', function (res) {
+            console.log("Res 3 :- ", res)
+        })
+    }
+    setTimeout(function() {
+            console.log("clicked")
+            frappe.realtime.on('latest_chat_updates', function (res) {
+            console.log("Res 2 :- ", res)
+        })
+
+    }, 200);
+   
+    setTimeout(function(){
+        // if (!frappe.session.user == "Guest"){
+        frappe.call({
+            method: "astro_chat.api.config.settings",
+            args:{
+                token: frappe.csrf_token
+            },
+            callback: function(response) {
+                if (response.message) {
+                    if (response.message.enable_chat){
+                        console.log(response.message)
+                    }
+                    else{
+                        // window.location.href = "/"
+                        console.log("not enable chat")
+                    }
+                } else {
+                    console.error("Server response is empty or invalid.");
+                }
+            }
+        });
+    // }
+    // else{
+    //     // window.location.href = "/"
+    // }
+    }, 100)
+
+</script>
+{% endblock %}

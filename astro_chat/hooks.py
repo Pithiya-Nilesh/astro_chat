@@ -12,11 +12,19 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/astro_chat/css/astro_chat.css"
-# app_include_js = "/assets/astro_chat/js/astro_chat.js"
+app_include_js = "/assets/astro_chat/js/chatbot.js"
+
+# include js, css files in header of desk.html
+app_include_css = ['chat.bundle.css']
+app_include_js = ['chat.bundle.js']
 
 # include js, css files in header of web template
 # web_include_css = "/assets/astro_chat/css/astro_chat.css"
 # web_include_js = "/assets/astro_chat/js/astro_chat.js"
+
+# include js, css files in header of web template
+web_include_css = ['chat.bundle.css']
+web_include_js = ['chat.bundle.js']
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "astro_chat/public/scss/website"
@@ -215,3 +223,9 @@ app_license = "MIT"
 # auth_hooks = [
 #	"astro_chat.auth.validate"
 # ]
+
+sounds = [
+    {'name': 'chat-notification', 'src': '/assets/chat/sounds/chat-notification.mp3', 'volume': 0.2},
+    {'name': 'chat-message-send', 'src': '/assets/chat/sounds/chat-message-send.mp3', 'volume': 0.2},
+    {'name': 'chat-message-receive', 'src': '/assets/chat/sounds/chat-message-receive.mp3', 'volume': 0.5}
+]
