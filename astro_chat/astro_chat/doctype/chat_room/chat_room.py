@@ -1,11 +1,15 @@
 # Copyright (c) 2021, codescientist703 and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
 from frappe.model.document import Document
 
 class ChatRoom(Document):
 	def get_members(self):
 		if self.members:
-			return [x.strip() for x in self.members.split(",")]
+			members = [x.strip() for x in self.members.split(",")]
+			# doc = frappe.get_cached_doc("Chat Room", self.name)
+			for i in self.users:
+				members.append(i.user)
+			return frappe.utils.unique(members)
 		return []

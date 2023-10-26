@@ -45,14 +45,14 @@ def send(content: str, user: str, room: str, email: str):
     }
     typing_event = f"{room}:typing"
     # chat_users = ['Guest', 'nilesh@sanskartechnolab.com']
-    # for chat_user in frappe.get_cached_doc("Chat Room", room).get_members():
+    for chat_user in frappe.get_cached_doc("Chat Room", room).get_members():
 
-    doc = frappe.get_cached_doc("Chat Room", room)
-    chat_users = doc.get_members()
-    for i in doc.users:
-        chat_users.append(i.user)
+    # doc = frappe.get_cached_doc("Chat Room", room)
+    # chat_users = doc.get_members()
+    # for i in doc.users:
+    #     chat_users.append(i.user)
 
-    for chat_user in chat_users:
+    # for chat_user in chat_users:
         frappe.publish_realtime(event=typing_event, user=chat_user, message=typing_data)
         frappe.publish_realtime(
             event=room, message=result, user=chat_user
@@ -63,7 +63,8 @@ def send(content: str, user: str, room: str, email: str):
             user=chat_user,
             after_commit=True,
         )
-    #     print("\n\n chat user", chat_user)
+
+    # print("\n\n chat user", chat_user)
     # print("\n\n chat users", chat_users)
     # print("\n\n chat room", frappe.get_cached_doc("Chat Room", room).get_members())
     # print("\n\n new message", new_message)
@@ -106,7 +107,6 @@ def mark_as_read(room: str):
 @frappe.whitelist(allow_guest=True)
 def set_typing(room: str, user: str, is_typing: bool, is_guest: bool):
     """Set the typing text accordingly
-
     Args:
         room (str): Room's name.
         user (str): Sender who is typing.
