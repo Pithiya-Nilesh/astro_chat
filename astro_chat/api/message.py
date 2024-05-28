@@ -44,15 +44,15 @@ def send(content: str, user: str, room: str, email: str):
         "is_guest": "true" if user == "Guest" else "false",
     }
     typing_event = f"{room}:typing"
-    # chat_users = ['Guest', 'nilesh@sanskartechnolab.com']
-    for chat_user in frappe.get_cached_doc("Chat Room", room).get_members():
+    chat_users = ['Guest', 'nilesh@sanskartechnolab.com', "dhyay@sanskartechnolab.com"]
+    # for chat_user in frappe.get_cached_doc("Chat Room", room).get_members():
 
     # doc = frappe.get_cached_doc("Chat Room", room)
     # chat_users = doc.get_members()
     # for i in doc.users:
     #     chat_users.append(i.user)
 
-    # for chat_user in chat_users:
+    for chat_user in chat_users:
         frappe.publish_realtime(event=typing_event, user=chat_user, message=typing_data)
         frappe.publish_realtime(
             event=room, message=result, user=chat_user
@@ -63,13 +63,6 @@ def send(content: str, user: str, room: str, email: str):
             user=chat_user,
             after_commit=True,
         )
-
-    # print("\n\n chat user", chat_user)
-    # print("\n\n chat users", chat_users)
-    # print("\n\n chat room", frappe.get_cached_doc("Chat Room", room).get_members())
-    # print("\n\n new message", new_message)
-    # print("\n\n result", result)
-    # print("\n\n typing data", typing_data)
 
 @frappe.whitelist(allow_guest=True)
 def get_all(room: str, email: str):
